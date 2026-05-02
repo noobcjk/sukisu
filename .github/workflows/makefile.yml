@@ -1,29 +1,27 @@
-name: Build Kernel
+name: CI
 
 on:
-  push:
-    branches: [ lineage-23.2 ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  build-kernel:
+    name: Oneplus 7T kernel
+    runs-on: ubuntu-22.04
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Build Kernel
-      uses: mlm-games/simple-kernel-build-action@v1
-      with:
-        KERNEL_CLONE_CMD: 'git clone https://github.com/noobcjk/sukisu/ -b lineage-23.2' # PSA: directory and depth=1 are added automatically!
-        KERNEL_CONFIG: '/vendor/sm8150_defconfig'
-        ARCH: 'arm64'
-        TOOLCHAIN_CLONE_CMD: 'git clone https://github.com/djb77/aarch64-linux-android-4.9 ./toolchain/gcc'
-        ENABLE_CCACHE: 'true'
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: kernel-build
-        path: 'kernel_source/flashable-anykernel.zip' # Always named flashable-anykernel.zip
+      - name: Build
+        uses: dabao1955/kernel_build_action@main
+        with:
+          kernel-url: https://github.com/noobcjk/sukisu/
+          kernel-branch: lineage-23.2
+          config: /vendor/sm8150_defconfig
+          arch: arm64
+          aosp-gcc: true
+          aosp-clang: true
+          android-version: 12
+          aosp-clang-version: r383902
+          anykernel3: true
+          release: true
+          access-token: ${{ secrets.GITHUB_TOKEN }}
