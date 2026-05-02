@@ -17,7 +17,7 @@ jobs:
       uses: mlm-games/simple-kernel-build-action@v1
       with:
         KERNEL_CLONE_CMD: 'git clone https://github.com/noobcjk/sukisu/ -b lineage-23.2' # PSA: directory and depth=1 are added automatically!
-        KERNEL_CONFIG: 'sm8150_defconfig'
+        KERNEL_CONFIG: '/vendor/sm8150_defconfig'
         ARCH: 'arm64'
         TOOLCHAIN_CLONE_CMD: 'git clone https://github.com/djb77/aarch64-linux-android-4.9 ./toolchain/gcc'
         ENABLE_CCACHE: 'true'
