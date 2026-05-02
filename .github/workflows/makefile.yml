@@ -17,7 +17,7 @@ jobs:
         with:
           kernel-url: https://github.com/noobcjk/sukisu/
           kernel-dir: msm-4.19
-          kernel-branch: taffy
+          kernel-branch: lineage-23.2
           config: sm8150_defconfig
           arch: arm64
           aosp-gcc: true
